@@ -1,45 +1,48 @@
-package app.src.main.java.oop.lab;
+package oop.lab;
 
-public class BusinessAccount extends BankAccount implements LoanService {
-    private String loanStatus;
-
-    public BusinessAccount(String accountNumber, String accountHolder, double balance) {
-        super(accountNumber, accountHolder, balance);
-        this.loanStatus = "No Loan";
+public class BusinessAccount extends BankAccount implements OnlineService, LoanService {
+    public BusinessAccount(String num, String holder, double balance) {
+        super(num, holder, balance);
     }
 
     @Override
     public double calculateInterest() {
-        double interest = getBalance() * 0.02;
-        deposit(interest); // Add the calculated interest to the balance
+        double interest = getBalance() * 0.1; // 10% interest
+        deposit(interest); // Add interest to balance
         return interest;
     }
 
     @Override
-    public void applyForLoan(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Loan amount must be greater than zero.");
+    public void transferFunds(double amount, String nama) {
+        if (getBalance() >= amount) {
+            withdraw(amount);
+            System.out.println("Withdrew $" + amount + " to " + nama);
+        } else {
+            System.out.println("Insufficient funds for transfer.");
         }
-            loanStatus = "Loan Applied: " + amount;
-        System.out.println("Loan application for " + amount + " submitted.");
+    }
+
+    @Override
+    public void payBills(double amount){
+        if (getBalance() >= amount) {
+            withdraw(amount);
+            System.out.println("Bills paid. Stay sigma");
+        } else {
+            System.out.println("Insufficient funds for bill payment.");
+        }
+    }
+
+    @Override
+    public void applyForLoan(double amount) {
+            System.out.println("Loaned " + amount + " $");
     }
 
     @Override
     public String checkLoanStatus() {
-        if (loanStatus.equals("No Loan")) {
-            return "No loan application found.";
-        }
-        return loanStatus;
+        String status = "Pending";
+        System.out.println("Loan status " + status);
+        return status;
     }
+} 
+    
 
-    public void payBills(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Bill amount must be greater than zero.");
-        }
-        if (amount > getBalance()) {
-            throw new IllegalArgumentException("Insufficient funds to pay the bill.");
-        }
-        withdraw(amount);
-        System.out.println("Paid bill of " + amount);
-    }
-}

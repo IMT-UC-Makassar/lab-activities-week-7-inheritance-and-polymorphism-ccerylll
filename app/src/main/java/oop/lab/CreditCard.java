@@ -1,6 +1,5 @@
-package app.src.main.java.oop.lab;
+package oop.lab;
 
-// CreditCard class
 public class CreditCard extends Card {
     public CreditCard(String cardNumber, String cardHolder) {
         super(cardNumber, cardHolder);
@@ -8,6 +7,9 @@ public class CreditCard extends Card {
 
     @Override
     public double getInterestRate() {
-        return 15.0; // Interest rate for credit cards
+        double rate = 15.0; // Credit cards typically have a higher interest rate
+        System.out.println("The interest rate is " + rate + "%");
+        return rate;
     }
 }
+

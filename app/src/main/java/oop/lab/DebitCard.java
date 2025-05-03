@@ -1,4 +1,4 @@
-package app.src.main.java.oop.lab;
+package oop.lab;
 
 public class DebitCard extends Card {
     public DebitCard(String cardNumber, String cardHolder) {
@@ -7,6 +7,8 @@ public class DebitCard extends Card {
 
     @Override
     public double getInterestRate() {
-        return 0.0; // No interest for debit cards
+        double rate = 0.0; // Debit cards typically have no interest rate
+        System.out.println("The interest rate is " + rate + "%");
+        return rate;
     }
 }

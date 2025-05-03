@@ -1,53 +1,31 @@
-package app.src.main.java.oop.lab;
+package oop.lab;
 
 public abstract class BankAccount {
     private String accountNumber;
     private String accountHolder;
-    private double balance;
+    private double balance; 
 
-    public BankAccount(String accountNumber, String accountHolder, double balance) {
-        if (accountNumber == null || accountNumber.isEmpty()) {
-            throw new IllegalArgumentException("Account number cannot be null or empty.");
-        }
-        if (accountHolder == null || accountHolder.isEmpty()) {
-            throw new IllegalArgumentException("Account holder cannot be null or empty.");
-        }
-        if (balance < 0) {
-            throw new IllegalArgumentException("Initial balance cannot be negative.");
-        }
-        this.accountNumber = accountNumber;
-        this.accountHolder = accountHolder;
+    public BankAccount (String num, String holder, double balance){
+        this.accountNumber = num;
+        this.accountHolder = holder;
         this.balance = balance;
     }
-
     public void deposit(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Deposit amount must be greater than zero.");
+        if (amount > 0) {
+            balance += amount;
+        } else {
+            System.out.println("Deposit amount must be positive.");
         }
-        balance += amount;
     }
-
     public void withdraw(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Withdrawal amount must be greater than zero.");
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+        } else {
+            throw new IllegalArgumentException("Insufficient funds");
         }
-        if (amount > balance) {
-            throw new IllegalArgumentException("Insufficient funds.");
-        }
-        balance -= amount;
     }
-
-    public double getBalance() {
+    public double getBalance(){
         return balance;
     }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public String getAccountHolder() {
-        return accountHolder;
-    }
-
-    public abstract double calculateInterest();
+    public abstract double calculateInterest ();
 }
